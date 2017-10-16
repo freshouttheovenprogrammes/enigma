@@ -16,7 +16,7 @@ class DateOffset
 
   def date_squared_last_four_digits
     date = ddmmyy(@date).to_i
-    (date ** 2).to_s[-4..-1]    #"4289"
+    (date ** 2).to_s[-4..-1]   
   end
 
   def get_offsets
