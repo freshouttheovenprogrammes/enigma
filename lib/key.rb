@@ -4,12 +4,13 @@ class KeyGenerator
 
   attr_reader :value, :rotations
 
-  def initialize(value = generate_random_key)
-    @value     = value
+  def initialize(value)
+    @value     = generate_random_key(value)
     @rotations = get_rotations_from_key
   end
 
-  def generate_random_key
+  def generate_random_key(value)
+    return value unless value == 0
     digits = []
     5.times do
       digits << rand(0..9)
