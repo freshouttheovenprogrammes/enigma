@@ -2,10 +2,10 @@ require 'pry'
 
 class KeyGenerator
 
-  attr_reader :key, :rotations
+  attr_reader :value, :rotations
 
-  def initialize(key = generate_random_key)
-    @key       = key
+  def initialize(value = generate_random_key)
+    @value     = value
     @rotations = get_rotations_from_key
   end
 
@@ -17,15 +17,11 @@ class KeyGenerator
     digits.join
   end
 
-=begin
-maybe use gets.chomp for xxxtra badassery
-=end
-
   def get_rotations_from_key
-    a = key[0..1].to_i
-    b = key[1..2].to_i
-    c = key[2..3].to_i
-    d = key[3..4].to_i
+    a = value[0..1].to_i
+    b = value[1..2].to_i
+    c = value[2..3].to_i
+    d = value[3..4].to_i
     @rotations = [a, b, c, d]
   end
 

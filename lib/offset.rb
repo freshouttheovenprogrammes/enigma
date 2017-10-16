@@ -11,7 +11,7 @@ class DateOffset
 
   def initialize(date = Date.today)
     @date = date
-    @offset = []
+    @offset = get_offsets
   end
 
   def date_squared_last_four_digits
@@ -19,13 +19,13 @@ class DateOffset
     (date ** 2).to_s[-4..-1]    #"4289"
   end
 
-
-  def offset_array
-    @offset[0] = date_squared_last_four_digits[0].to_i
-    @offset[1] = date_squared_last_four_digits[1].to_i
-    @offset[2] = date_squared_last_four_digits[2].to_i
-    @offset[3] = date_squared_last_four_digits[3].to_i
-    @offset
+  def get_offsets
+    offset = []
+    offset[0] = date_squared_last_four_digits[0].to_i
+    offset[1] = date_squared_last_four_digits[1].to_i
+    offset[2] = date_squared_last_four_digits[2].to_i
+    offset[3] = date_squared_last_four_digits[3].to_i
+    return offset
   end
 
 end

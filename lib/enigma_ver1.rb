@@ -1,25 +1,34 @@
 require 'pry'
-require '../lib/key'
-require '../lib/offset'
-
+require './lib/key'
+require './lib/offset'
 
 class Enigma
+  attr_reader :key,
+              :date,
+              :rotations,
+              :offset,
+              :key_rotations
 
-
-  attr_reader :key, :date, :rotations, :offset
-
-  def initialize (key = KeyGenerator.new("12345") date = DateOffset.new)
-    @key = key.key #rename to value on refactor
+  def initialize (key = KeyGenerator.new("12345"), date = DateOffset.new)
+    @key = key.value
     @character_map = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o',
       'p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7',
       '8','9',' ','.',',','!','@','#','$','%','^','&','*','(',')','[',']','.','<','>',';',':','/','?',
       '|']
-    @keyrotations = key.rotations
+    @key_rotations = key.rotations
     @offset = date.offset
-    @rotations = rotations
+    @rotations = add_key_rotations_and_offset
   end
 
-# .zip refactor to combine arrays for cracking.
+  def add_key_rotations_and_offset
+    rotations = []
+    rotations[0] = @key_rotations[0] + @offset[0]
+    rotations[1] = @key_rotations[1] + @offset[1]
+    rotations[2] = @key_rotations[2] + @offset[2]
+    rotations[3] = @key_rotations[3] + @offset[3]
+    return rotations
+  end
+
   def rotation_station(letter, index, character_map)
     rotation = @rotations[index % 4]
     new_index = character_map.index(letter.downcase) + rotation
@@ -41,9 +50,6 @@ class Enigma
     end.join
   end
 
+  # .zip refactor to combine arrays for cracking.
+
 end
-
-
-  # will need to initialize Key here (use separate Key class file)
-  # also will need to initialize date in here instead of in the Enigma class
-  #maybe make @character_map * 3 so that doesn't have to re-cycle over array. or find method that will do that.

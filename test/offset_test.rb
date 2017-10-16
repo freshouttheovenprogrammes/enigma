@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require '../lib/offset'
+require './lib/offset'
 
 
 class DateOffsetTest < MiniTest::Test
@@ -12,7 +12,7 @@ class DateOffsetTest < MiniTest::Test
 
   def test_that_offset_array_is_updated
     date = DateOffset.new
-    assert_equal [4, 2, 8, 9], date.offset_array
+    assert_equal [4, 2, 8, 9], date.get_offsets
   end
 
 
