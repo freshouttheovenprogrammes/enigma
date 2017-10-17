@@ -3,7 +3,6 @@ require './lib/offset'
 require './lib/key'
 
 class Decrypt
-
   include YYMMDD
 
   attr_reader :message, :date, :key_rotations, :offset, :rotations
@@ -21,14 +20,6 @@ class Decrypt
     @rotations = add_key_rotations_and_offset
   end
 
-  def final_decryption
-    reverse_map = @character_map.reverse
-    decryption = message.split("")
-    decryption.map.with_index do |letter, index|
-      rotation_station(letter, index, reverse_map)
-    end.join
-  end
-
   def add_key_rotations_and_offset
     rotations = []
     rotations[0] = @key_rotations[0] + @offset[0]
@@ -38,10 +29,19 @@ class Decrypt
     return rotations
   end
 
+  def final_decryption
+    reverse_map = @character_map.reverse
+    decryption = message.split("")
+    decryption.map.with_index do |letter, index|
+      rotation_station(letter, index, reverse_map)
+    end.join
+  end
+
   def rotation_station(letter, index, character_map)
     rotation = @rotations[index % 4]
     new_index = character_map.index(letter.downcase) + rotation
     character_map[new_index % character_map.length]
   end
 
+  
 end

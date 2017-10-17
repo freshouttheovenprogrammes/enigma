@@ -1,6 +1,8 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/enigma'
+require './lib/crack'
+require 'pry'
 
 class EnigmaTest < MiniTest::Test
 
@@ -28,18 +30,32 @@ class EnigmaTest < MiniTest::Test
     assert_equal "hello, world", result
   end
 
-  def test_can_find_indices_of_known_tail_sequence
-    skip
-    #tail sequence of ..end..
+  def test_encrypt_sentence_with_special_ending
     enigma = Enigma.new
-    # assert_equal "..end..",
+    result = enigma.encrypt("Lee..end..", "12345", Date.today)
+    assert_equal "13*6>3:?>d", result
   end
 
-  def test_can_get_key_from_encrypted_message
+  def test_encrypt_sentence_with_special_ending_random_key
+    enigma = Enigma.new
+    result = enigma.encrypt("Lee..end..", 0, Date.today)
+    assert_equal "", result
+  end
+
+  def test_can_crack_a_message
+    enigma = Enigma.new
+    assert_equal "lee..end..", enigma.crack("6u]m|ua.|>")
+  end
+
+  def test_that_it_is_reading_message_file
     skip
     enigma = Enigma.new
-    #need to change the key and message later
-    assert_equal "34563", enigma.crack("hgkjffkljghfkj")
+    result = enigma.io_reader[0]
+    binding.pry
+    assert_equal "",""
+  end
+
+  def test_that_encrypted_message_is_output_to_new_file
   end
 
 end

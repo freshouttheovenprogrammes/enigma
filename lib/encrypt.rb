@@ -23,7 +23,6 @@ class Encrypt
     @key_rotations = @key.rotations
     @offset = @date.offset
     @rotations = add_key_rotations_and_offset
-
   end
 
   def add_key_rotations_and_offset
@@ -48,4 +47,19 @@ class Encrypt
     character_map[new_index % character_map.length]
   end
 
+  def text_reader
+    #move outside class
+    text_in = ARGV[0]
+    text_out = ARGV[1]
+    input_message = File.open(text_in, "r").read.chomp
+    #chomp was important because of \ character not being in map
+    encrypt = Encrypt.new(input_message, 0, Date.today)
+    encrypted_message = encrypt.final_encryption
+    output_message = File.open(text_out, "w").write(encrypted_message)
+  end
+
 end
+
+encrypt = Encrypt.new("", 0, Date.today)
+encrypt.text_reader
+puts "Created '#{ARGV[1]}' with the key #{encrypt.key.value} and date #{Date.today}"
