@@ -42,6 +42,14 @@ class Decrypt
     new_index = character_map.index(letter.downcase) + rotation
     character_map[new_index % character_map.length]
   end
-
-  
 end
+
+input_filename = ARGV[0]
+output_filename = ARGV[1]
+key = ARGV[2]
+date = Date.today
+message = File.open(input_filename, 'r').read.chomp
+decrypt = Decrypt.new(message, key, date)
+decrypted_message = decrypt.final_decryption
+output_file = File.open(output_filename, "w").write(decrypted_message)
+puts "Created '#{ARGV[1]}' with the key #{key} and date #{date}"

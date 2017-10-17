@@ -4,7 +4,6 @@ require './lib/offset'
 require './lib/encrypt'
 require './lib/decrypt'
 require './lib/crack'
-# require './lib/text_reader'
 
 class Enigma
 
@@ -20,9 +19,7 @@ class Enigma
     cracked_message = Crack.new(message, date).output
   end
 
-  def io_reader
-    text_reader
-  end
-
-  # working with files
 end
+
+#fix issue with date data type in decrypt runner
+#find key for crack (iterate 00000-99999)?

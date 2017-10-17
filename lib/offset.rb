@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require "date"
 require "yymmdd"
+require 'pry'
 
 class DateOffset
   include YYMMDD
@@ -9,7 +10,7 @@ class DateOffset
   attr_reader :date,
               :offset
 
-  def initialize(date)
+  def initialize(date = Date.today)
     @date = date
     @offset = get_offsets
   end

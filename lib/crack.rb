@@ -65,5 +65,13 @@ class Crack
     new_index = reversed_map.index(letter.downcase) + rotation
     reversed_map[new_index % reversed_map.length]
   end
-
 end
+
+input_filename = ARGV[0]
+output_filename = ARGV[1]
+date = Date.today
+message = File.open(input_filename, 'r').read.chomp
+crack = Crack.new(message, date)
+decrypted_message = crack.final_decryption
+output_file = File.open(output_filename, "w").write(decrypted_message)
+puts "Created '#{ARGV[1]}' with the cracked key _______ and date #{date}"
