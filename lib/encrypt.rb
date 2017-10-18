@@ -51,7 +51,7 @@ end
 input_filename = ARGV[0]
 output_filename = ARGV[1]
 message = File.open(input_filename, 'r').read.chomp
-encrypt = Encrypt.new(message, 0, Date.today)
+encrypt = Encrypt.new(message, "82648", Date.today)
 encrypted_message = encrypt.final_encryption
 output_file = File.open(output_filename, "w").write(encrypted_message)
 puts "Created '#{ARGV[1]}' with the key #{encrypt.key.value} and date #{Date.today}"

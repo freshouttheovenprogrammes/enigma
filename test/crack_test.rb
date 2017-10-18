@@ -38,7 +38,7 @@ class CrackTest < MiniTest::Test
   end
 
   def test_can_crack_a_message
-    crack = Crack.new("6u]m|ua.|>")
+    crack = Crack.new("[6[k1<oce9nt5f5m,[rbe(ug&frl98z?z0l")
     assert_equal "lee..end..", crack.output
   end
 
