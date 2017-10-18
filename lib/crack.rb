@@ -16,7 +16,7 @@ class Crack
     @character_map = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o',
       'p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7',
       '8','9',' ','.',',','!','@','#','$','%','^','&','*','(',')','[',']','.','<',
-      '>',';',':','/','?','|']
+      '>',';',':','/','?','|','\\']
     @message = message
     @rotations = put_rotations_in_order
     @output = final_decryption
@@ -30,10 +30,10 @@ class Crack
 
   def get_difference_last_4_characters_index_in_char_map
     differences = []
-    differences << @character_map.index(message[-4]) - @character_map.index("n")
-    differences << @character_map.index(message[-3]) - @character_map.index("d")
-    differences << @character_map.index(message[-2]) - @character_map.index(".")
-    differences << @character_map.index(message[-1]) - @character_map.index(".")
+    # differences << @character_map.index(message[-4]) - @character_map.index("n")
+    # differences << @character_map.index(message[-3]) - @character_map.index("d")
+    # differences << @character_map.index(message[-2]) - @character_map.index(".")
+    # differences << @character_map.index(message[-1]) - @character_map.index(".")
   end
 
   def zip_the_arrays_together
@@ -49,14 +49,14 @@ class Crack
     @rotations
   end
 
-  # def negative_correction(number)
-  #   #if the difference is negative; do char_map.length - abs(difference)
-  #   if number < 0
-  #     @character_map.length - number.abs
-  #   else
-  #     number
-  #   end
-  # end
+  def negative_correction(number)
+    #if the difference is negative; do char_map.length - abs(difference)
+    if number < 0
+      return @character_map.length - number.abs
+    else
+      return number
+    end
+  end
 
   def final_decryption
     reversed_map = @character_map.reverse
@@ -73,11 +73,11 @@ class Crack
   end
 end
 
-input_filename = ARGV[0]
-output_filename = ARGV[1]
-date = Date.today
-message = File.open(input_filename, 'r').read.chomp
-crack = Crack.new(message, date)
-decrypted_message = crack.final_decryption
-output_file = File.open(output_filename, "w").write(decrypted_message)
-puts "Created '#{ARGV[1]}' with the cracked key _______ and date #{date}"
+if ARGV.empty? == false
+  date = Date.today
+  message = File.open(ARGV[0], 'r').read.chomp
+  crack = Crack.new(message, date)
+  decrypted_message = crack.final_decryption
+  output_file = File.open(ARGV[1], "w").write(decrypted_message)
+  puts "Created '#{ARGV[1]}' with the cracked key _______ and date #{date}"
+end

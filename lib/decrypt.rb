@@ -22,10 +22,13 @@ class Decrypt
 
   def add_key_rotations_and_offset
     rotations = []
-    rotations[0] = @key_rotations[0] + @offset[0]
-    rotations[1] = @key_rotations[1] + @offset[1]
-    rotations[2] = @key_rotations[2] + @offset[2]
-    rotations[3] = @key_rotations[3] + @offset[3]
+    for index in 0..3
+      rotations[index] = @key_rotations[index] + @offset[index]
+    end
+    # rotations[0] = @key_rotations[0] + @offset[0]
+    # rotations[1] = @key_rotations[1] + @offset[1]
+    # rotations[2] = @key_rotations[2] + @offset[2]
+    # rotations[3] = @key_rotations[3] + @offset[3]
     return rotations
   end
 
@@ -44,12 +47,11 @@ class Decrypt
   end
 end
 
-input_filename = ARGV[0]
-output_filename = ARGV[1]
-key = ARGV[2]
-date = Date.today
-message = File.open(input_filename, 'r').read.chomp
-decrypt = Decrypt.new(message, key, date)
-decrypted_message = decrypt.final_decryption
-output_file = File.open(output_filename, "w").write(decrypted_message)
-puts "Created '#{ARGV[1]}' with the key #{key} and date #{date}"
+if ARGV.empty? == false
+  date = Date.today
+  message = File.open(ARGV[0], 'r').read.chomp
+  decrypt = Decrypt.new(message, ARGV[2], date)
+  decrypted_message = decrypt.final_decryption
+  output_file = File.open(ARGV[1], "w").write(decrypted_message)
+  puts "Created '#{ARGV[1]}' with the key #{ARGV[2]} and date #{date}"
+end
