@@ -22,25 +22,21 @@ class Decrypt
 
   def add_key_rotations_and_offset
     rotations = []
-    for index in 0..3
-      rotations[index] = @key_rotations[index] + @offset[index]
-    end
-    # rotations[0] = @key_rotations[0] + @offset[0]
-    # rotations[1] = @key_rotations[1] + @offset[1]
-    # rotations[2] = @key_rotations[2] + @offset[2]
-    # rotations[3] = @key_rotations[3] + @offset[3]
+    rotations[0] = @key_rotations[0] + @offset[0]
+    rotations[1] = @key_rotations[1] + @offset[1]
+    rotations[2] = @key_rotations[2] + @offset[2]
+    rotations[3] = @key_rotations[3] + @offset[3]
     return rotations
   end
 
   def final_decryption
-    reverse_map = @character_map.reverse
     decryption = message.split("")
     decryption.map.with_index do |letter, index|
-      rotation_station(letter, index, reverse_map)
+      rotation_station(letter, index)
     end.join
   end
 
-  def rotation_station(letter, index, character_map)
+  def rotation_station(letter, index, character_map = @character_map.reverse)
     rotation = @rotations[index % 4]
     new_index = character_map.index(letter.downcase) + rotation
     character_map[new_index % character_map.length]

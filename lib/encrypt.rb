@@ -37,11 +37,11 @@ class Encrypt
   def final_encryption
     encryption = @message.split("")
     encryption.map.with_index do |letter, index|
-      rotation_station(letter, index, @character_map)
+      rotation_station(letter, index)
     end.join
   end
 
-  def rotation_station(letter, index, character_map)
+  def rotation_station(letter, index, character_map = @character_map)
     rotation = @rotations[index % 4]
     new_index = character_map.index(letter.downcase) + rotation
     character_map[new_index % character_map.length]

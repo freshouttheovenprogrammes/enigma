@@ -49,7 +49,7 @@ class EnigmaTest < MiniTest::Test
     skip
     enigma = Enigma.new
     result = enigma.io_reader[0]
-    binding.pry
+    
     assert_equal "",""
   end
 
