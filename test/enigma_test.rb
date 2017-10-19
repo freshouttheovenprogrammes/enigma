@@ -42,18 +42,7 @@ class EnigmaTest < MiniTest::Test
 
   def test_can_crack_a_message
     enigma = Enigma.new
-    assert_equal "lee..end..", enigma.crack("6u]m|ua.|>")
-  end
-
-  def test_that_it_is_reading_message_file
-    skip
-    enigma = Enigma.new
-    result = enigma.io_reader[0]
-    
-    assert_equal "",""
-  end
-
-  def test_that_encrypted_message_is_output_to_new_file
+    assert_equal "this is so secret..end..", enigma.crack("z6<2$7d*y!v2k1cozdwot2w(")
   end
 
 end

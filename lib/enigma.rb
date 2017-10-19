@@ -20,7 +20,3 @@ class Enigma
   end
 
 end
-
-#fix issue with date data type in decrypt runner
-#find key for crack (iterate 00000-99999)?
-#make more tests!!!
